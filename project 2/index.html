@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEEE CS Event Hub — SRM IST Vadapalani</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ieee-blue: #0047AB;
+  --ieee-gold: #C8962A;
+  --ieee-dark: #0a0e1a;
+  --ieee-card: #111827;
+  --ieee-surface: #1a2235;
+  --ieee-border: rgba(255,255,255,0.08);
+  --ieee-text: #f0f4ff;
+  --ieee-muted: rgba(240,244,255,0.5);
+  --ieee-accent: #3B82F6;
+  --r: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--ieee-dark); color: var(--ieee-text); min-height: 100vh; }
+
+/* TOP NAV */
+.nav { background: rgba(10,14,26,0.95); border-bottom: 1px solid var(--ieee-border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo-badge { background: var(--ieee-blue); color: #fff; font-family: 'DM Serif Display', serif; font-size: 13px; font-weight: 400; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.5px; }
+.nav-logo-title { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--ieee-text); }
+.nav-logo-sub { font-size: 11px; color: var(--ieee-muted); letter-spacing: 1.5px; text-transform: uppercase; }
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+.nav-tab { background: none; border: none; color: var(--ieee-muted); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px; }
+.nav-tab:hover, .nav-tab.active { color: var(--ieee-text); background: rgba(255,255,255,0.07); }
+.nav-tab.active { color: #fff; }
+.upload-btn { background: var(--ieee-blue); color: #fff; border: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s; }
+.upload-btn:hover { background: #0059d6; transform: translateY(-1px); }
+
+/* HERO */
+.hero { background: linear-gradient(135deg, #040816 0%, #0a1428 50%, #0d1f3c 100%); padding: 3rem 2rem 2.5rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,71,171,0.15) 0%, transparent 70%); pointer-events: none; }
+.hero::after { content: ''; position: absolute; bottom: -40px; left: 20%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(200,150,42,0.08) 0%, transparent 70%); pointer-events: none; }
+.hero-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+.hero-eyebrow { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ieee-gold); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+.hero-tag { font-size: 11px; color: var(--ieee-gold); letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+.hero-title { font-family: 'DM Serif Display', serif; font-size: 42px; line-height: 1.15; color: #fff; margin-bottom: 12px; }
+.hero-title span { color: var(--ieee-gold); font-style: italic; }
+.hero-desc { font-size: 15px; color: var(--ieee-muted); max-width: 520px; line-height: 1.7; }
+.hero-stats { display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
+.hero-stat-num { font-family: 'JetBrains Mono', monospace; font-size: 28px; color: #fff; font-weight: 500; }
+.hero-stat-label { font-size: 11px; color: var(--ieee-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+/* MAIN LAYOUT */
+.main { max-width: 1100px; margin: 0 auto; padding: 2rem; width: 100%; }
+
+/* FILTER BAR */
+.filter-bar { display: flex; gap: 10px; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.search-wrap { flex: 1; min-width: 200px; position: relative; }
+.search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ieee-muted); font-size: 14px; pointer-events: none; }
+.search-input { width: 100%; background: var(--ieee-card); border: 1px solid var(--ieee-border); color: var(--ieee-text); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 10px 14px 10px 36px; border-radius: 10px; outline: none; transition: border 0.2s; }
+.search-input::placeholder { color: var(--ieee-muted); }
+.search-input:focus { border-color: rgba(59,130,246,0.5); }
+.filter-pill { background: var(--ieee-card); border: 1px solid var(--ieee-border); color: var(--ieee-muted); font-family: 'DM Sans', sans-serif; font-size: 12px; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.filter-pill:hover, .filter-pill.active { background: var(--ieee-blue); border-color: var(--ieee-blue); color: #fff; }
+.sort-select { background: var(--ieee-card); border: 1px solid var(--ieee-border); color: var(--ieee-text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 9px 12px; border-radius: 10px; outline: none; cursor: pointer; }
+.sort-select option { background: #1a2235; }
+
+/* EVENTS HEADER */
+.events-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.events-count { font-size: 13px; color: var(--ieee-muted); }
+.view-toggle { display: flex; gap: 4px; }
+.view-btn { background: none; border: 1px solid var(--ieee-border); color: var(--ieee-muted); padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+.view-btn.active { background: var(--ieee-card); color: var(--ieee-text); }
+
+/* GRID & LIST */
+.events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.events-list { display: flex; flex-direction: column; gap: 10px; }
+
+/* EVENT CARD */
+.event-card { background: var(--ieee-card); border: 1px solid var(--ieee-border); border-radius: var(--r); overflow: hidden; cursor: pointer; transition: all 0.25s; position: relative; }
+.event-card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-2px); background: var(--ieee-surface); }
+.card-poster { height: 160px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.card-poster-icon { font-size: 48px; position: relative; z-index: 1; }
+.card-poster-label { position: absolute; top: 10px; right: 10px; }
+.card-body { padding: 14px 16px; }
+.card-category { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; }
+.cat-seminar { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.cat-workshop { background: rgba(16,185,129,0.15); color: #34d399; }
+.cat-hackathon { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.cat-coding { background: rgba(168,85,247,0.15); color: #c084fc; }
+.cat-membership { background: rgba(239,68,68,0.15); color: #f87171; }
+.card-title { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--ieee-text); margin-bottom: 10px; line-height: 1.3; }
+.card-meta { display: flex; flex-direction: column; gap: 5px; }
+.card-meta-row { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ieee-muted); }
+.card-meta-icon { width: 14px; text-align: center; opacity: 0.7; }
+.card-actions { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-top: 1px solid var(--ieee-border); }
+.card-action-btn { background: none; border: 1px solid var(--ieee-border); color: var(--ieee-muted); font-family: 'DM Sans', sans-serif; font-size: 11px; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.card-action-btn:hover { border-color: var(--ieee-accent); color: var(--ieee-accent); }
+.card-view-btn { background: var(--ieee-blue); border: none; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; padding: 5px 14px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.card-view-btn:hover { background: #0059d6; }
+
+/* STATUS BADGE */
+.status-badge { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px; }
+.status-upcoming { background: rgba(34,197,94,0.15); color: #4ade80; }
+.status-ongoing { background: rgba(251,191,36,0.2); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+.status-past { background: rgba(255,255,255,0.06); color: var(--ieee-muted); }
+
+/* UPLOAD MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 0.3s; padding: 1rem; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal { background: var(--ieee-card); border: 1px solid var(--ieee-border); border-radius: 16px; width: 100%; max-width: 520px; padding: 2rem; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-close { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.07); border: none; color: var(--ieee-muted); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.modal-close:hover { background: rgba(255,255,255,0.12); color: var(--ieee-text); }
+.modal-title { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 6px; }
+.modal-sub { font-size: 13px; color: var(--ieee-muted); margin-bottom: 1.5rem; }
+.drop-zone { border: 2px dashed rgba(59,130,246,0.3); border-radius: 12px; padding: 2.5rem 2rem; text-align: center; cursor: pointer; transition: all 0.2s; background: rgba(59,130,246,0.03); }
+.drop-zone:hover, .drop-zone.drag-over { border-color: rgba(59,130,246,0.7); background: rgba(59,130,246,0.07); }
+.drop-icon { font-size: 36px; margin-bottom: 12px; }
+.drop-text { font-size: 14px; color: var(--ieee-muted); }
+.drop-text strong { color: var(--ieee-accent); }
+.drop-formats { font-size: 11px; color: rgba(240,244,255,0.3); margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; }
+.file-input { display: none; }
+.processing-section { display: none; margin-top: 16px; }
+.processing-section.visible { display: block; }
+.processing-filename { font-size: 13px; color: var(--ieee-text); font-weight: 500; margin-bottom: 8px; }
+.progress-wrap { background: rgba(255,255,255,0.07); border-radius: 20px; height: 4px; overflow: hidden; margin: 8px 0; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, var(--ieee-blue), var(--ieee-accent)); border-radius: 20px; width: 0%; transition: width 0.4s ease; }
+.processing-step { font-size: 12px; color: var(--ieee-muted); display: flex; align-items: center; gap: 7px; margin-top: 6px; }
+.step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ieee-accent); flex-shrink: 0; }
+.extracted-preview { background: var(--ieee-surface); border: 1px solid var(--ieee-border); border-radius: 10px; padding: 14px 16px; margin-top: 14px; display: none; }
+.extracted-preview.visible { display: block; }
+.extracted-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--ieee-gold); margin-bottom: 10px; font-weight: 600; }
+.extracted-field { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; gap: 12px; }
+.extracted-field:last-child { border-bottom: none; }
+.field-label { color: var(--ieee-muted); flex-shrink: 0; }
+.field-value { color: var(--ieee-text); font-family: 'JetBrains Mono', monospace; font-size: 12px; text-align: right; }
+.modal-submit { background: var(--ieee-blue); color: #fff; border: none; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 12px 24px; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 16px; transition: all 0.2s; display: none; }
+.modal-submit.visible { display: block; }
+.modal-submit:hover { background: #0059d6; }
+
+/* EVENT DETAIL MODAL */
+.detail-modal { background: var(--ieee-card); border: 1px solid var(--ieee-border); border-radius: 16px; width: 100%; max-width: 640px; overflow: hidden; position: relative; transform: translateY(20px); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; }
+.modal-overlay.open .detail-modal { transform: translateY(0); }
+.detail-poster { height: 220px; display: flex; align-items: center; justify-content: center; position: relative; }
+.detail-body { padding: 1.5rem 2rem 2rem; }
+.detail-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; }
+.detail-title { font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1.25; flex: 1; margin-right: 1rem; }
+.detail-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1.5rem 0; }
+.detail-meta-item { background: var(--ieee-surface); border-radius: 8px; padding: 12px 14px; }
+.detail-meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--ieee-muted); margin-bottom: 5px; font-weight: 600; }
+.detail-meta-value { font-size: 14px; color: var(--ieee-text); }
+.detail-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ieee-gold); font-weight: 600; margin-bottom: 10px; }
+.ocr-raw { background: var(--ieee-surface); border-radius: 8px; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ieee-muted); line-height: 1.9; white-space: pre; overflow-x: auto; }
+
+/* LIST ITEM */
+.event-list-item { background: var(--ieee-card); border: 1px solid var(--ieee-border); border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.2s; }
+.event-list-item:hover { border-color: rgba(59,130,246,0.3); background: var(--ieee-surface); }
+.list-icon { width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.list-content { flex: 1; min-width: 0; }
+.list-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.list-sub { font-size: 12px; color: var(--ieee-muted); display: flex; gap: 16px; flex-wrap: wrap; }
+.list-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+/* EMPTY STATE */
+.empty-state { text-align: center; padding: 4rem 2rem; grid-column: 1 / -1; }
+.empty-icon { font-size: 48px; margin-bottom: 1rem; opacity: 0.4; }
+.empty-title { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 8px; color: var(--ieee-muted); }
+.empty-desc { font-size: 14px; color: rgba(240,244,255,0.3); }
+
+/* DATE RANGE */
+.date-range-row { display: flex; gap: 8px; align-items: center; }
+.date-input { background: var(--ieee-card); border: 1px solid var(--ieee-border); color: var(--ieee-text); font-family: 'DM Sans', sans-serif; font-size: 12px; padding: 8px 10px; border-radius: 8px; outline: none; width: 140px; }
+.date-input:focus { border-color: rgba(59,130,246,0.5); }
+.date-sep { font-size: 12px; color: var(--ieee-muted); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .hero-title { font-size: 28px; }
+  .nav-logo-title { font-size: 14px; }
+  .nav-logo-sub { display: none; }
+  .date-range-row { display: none; }
+  .hero-stats { gap: 1.2rem; }
+  .hero-stat-num { font-size: 22px; }
+  .detail-meta-grid { grid-template-columns: 1fr; }
+  .detail-title { font-size: 20px; }
+  .list-right { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-badge">IEEE</div>
+    <div>
+      <div class="nav-logo-title">CS Student Chapter</div>
+      <div class="nav-logo-sub">SRM IST Vadapalani · Event Hub</div>
+    </div>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-tab active" onclick="showView('events')">Events</button>
+    <button class="nav-tab" onclick="openUploadModal()">Upload</button>
+    <button class="upload-btn" onclick="openUploadModal()">
+      <span style="font-size:16px;">⊕</span> Upload Poster
+    </button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      <span class="hero-tag">Automated Event Intelligence</span>
+    </div>
+    <div class="hero-title">Discover IEEE <span>Events</span><br>Powered by AI</div>
+    <div class="hero-desc">Upload event posters — our OCR and NLP engine automatically extracts dates, venues, and categories, keeping everything organized and searchable.</div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="stat-total">6</div>
+        <div class="hero-stat-label">Events Listed</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="stat-upcoming">4</div>
+        <div class="hero-stat-label">Upcoming</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-label">Categories</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">&gt;90%</div>
+        <div class="hero-stat-label">OCR Accuracy</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input class="search-input" type="text" id="searchInput" placeholder="Search by event name or keyword..." oninput="filterEvents()">
+    </div>
+    <div class="date-range-row">
+      <input class="date-input" type="date" id="dateFrom" onchange="filterEvents()">
+      <span class="date-sep">→</span>
+      <input class="date-input" type="date" id="dateTo" onchange="filterEvents()">
+    </div>
+    <select class="sort-select" id="sortSelect" onchange="filterEvents()">
+      <option value="date-asc">Date: Soonest</option>
+      <option value="date-desc">Date: Latest</option>
+      <option value="name">Name A–Z</option>
+    </select>
+  </div>
+
+  <div class="filter-bar" style="gap:6px;">
+    <button class="filter-pill active" data-cat="all" onclick="setCat(this,'all')">All Events</button>
+    <button class="filter-pill" data-cat="Seminar" onclick="setCat(this,'Seminar')">Seminar</button>
+    <button class="filter-pill" data-cat="Workshop" onclick="setCat(this,'Workshop')">Workshop</button>
+    <button class="filter-pill" data-cat="Hackathon" onclick="setCat(this,'Hackathon')">Hackathon</button>
+    <button class="filter-pill" data-cat="Coding Challenge" onclick="setCat(this,'Coding Challenge')">Coding Challenge</button>
+    <button class="filter-pill" data-cat="Membership Drive" onclick="setCat(this,'Membership Drive')">Membership Drive</button>
+  </div>
+
+  <div class="events-header">
+    <div class="events-count" id="eventsCount">Showing 6 events</div>
+    <div class="view-toggle">
+      <button class="view-btn active" id="gridBtn" onclick="setView('grid')">⊞ Grid</button>
+      <button class="view-btn" id="listBtn" onclick="setView('list')">≡ List</button>
+    </div>
+  </div>
+
+  <div id="eventsContainer" class="events-grid"></div>
+</div>
+
+<!-- UPLOAD MODAL -->
+<div class="modal-overlay" id="uploadModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('uploadModal')">✕</button>
+    <div class="modal-title">Upload Event Poster</div>
+    <div class="modal-sub">Accepts .jpeg, .png, and .pdf — AI extracts all event details automatically.</div>
+    <div class="drop-zone" id="dropZone"
+      onclick="document.getElementById('fileInput').click()"
+      ondragover="handleDragOver(event)"
+      ondragleave="handleDragLeave(event)"
+      ondrop="handleDrop(event)">
+      <div class="drop-icon">📄</div>
+      <div class="drop-text"><strong>Click to browse</strong> or drag and drop here</div>
+      <div class="drop-formats">Supported: JPEG · PNG · PDF</div>
+    </div>
+    <input type="file" class="file-input" id="fileInput" accept=".jpg,.jpeg,.png,.pdf" onchange="handleFileSelect(event)">
+    <div class="processing-section" id="processingSection">
+      <div class="processing-filename" id="processingFileName"></div>
+      <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="processing-step"><div class="step-dot"></div><span id="processingStep">Initializing OCR engine...</span></div>
+      <div class="extracted-preview" id="extractedPreview">
+        <div class="extracted-title">✦ Extracted Metadata</div>
+        <div class="extracted-field"><span class="field-label">Event Name</span><span class="field-value" id="extName">—</span></div>
+        <div class="extracted-field"><span class="field-label">Date</span><span class="field-value" id="extDate">—</span></div>
+        <div class="extracted-field"><span class="field-label">Time</span><span class="field-value" id="extTime">—</span></div>
+        <div class="extracted-field"><span class="field-label">Venue</span><span class="field-value" id="extVenue">—</span></div>
+        <div class="extracted-field"><span class="field-label">Category</span><span class="field-value" id="extCat">—</span></div>
+        <div class="extracted-field"><span class="field-label">Confidence</span><span class="field-value" id="extConf" style="color:#4ade80;">—</span></div>
+      </div>
+    </div>
+    <button class="modal-submit" id="submitBtn" onclick="submitEvent()">Save to Repository →</button>
+  </div>
+</div>
+
+<!-- EVENT DETAIL MODAL -->
+<div class="modal-overlay" id="detailModal">
+  <div class="detail-modal" id="detailContent"></div>
+</div>
+
+<script>
+const CAT_STYLES = {
+  'Seminar':          { cls: 'cat-seminar',    bg: 'rgba(37,99,235,0.12)',   icon: '🎓' },
+  'Workshop':         { cls: 'cat-workshop',   bg: 'rgba(5,150,105,0.12)',   icon: '🔧' },
+  'Hackathon':        { cls: 'cat-hackathon',  bg: 'rgba(217,119,6,0.12)',   icon: '⚡' },
+  'Coding Challenge': { cls: 'cat-coding',     bg: 'rgba(124,58,237,0.12)',  icon: '💻' },
+  'Membership Drive': { cls: 'cat-membership', bg: 'rgba(220,38,38,0.12)',   icon: '🤝' }
+};
+
+let events = [
+  { id:1, name:'Deep Learning Symposium 2025',     date:'2025-04-18', time:'10:00 AM', venue:'Seminar Hall A, Block IV',        category:'Seminar',          status:'upcoming', desc:'An in-depth exploration of neural architecture advances, presented by industry experts and faculty.' },
+  { id:2, name:'Full Stack Web Dev Workshop',       date:'2025-04-25', time:'9:00 AM',  venue:'Computer Lab 302, Block II',      category:'Workshop',         status:'upcoming', desc:'Hands-on workshop covering React, Node.js, and database design patterns for modern web applications.' },
+  { id:3, name:'Code Blitz — 24 Hour Hackathon',   date:'2025-05-03', time:'8:00 AM',  venue:'Innovation Hub, Ground Floor',    category:'Hackathon',        status:'upcoming', desc:'A 24-hour hackathon open to all IEEE members. Build something amazing within the theme of sustainable tech.' },
+  { id:4, name:'AlgoArena Coding Contest',          date:'2025-05-15', time:'2:00 PM',  venue:'Digital Classroom DC-1',          category:'Coding Challenge', status:'upcoming', desc:'Competitive programming contest across three difficulty tiers. Registration closes one week prior.' },
+  { id:5, name:'IEEE CS Membership Drive 2025',    date:'2025-03-10', time:'11:00 AM', venue:'Main Auditorium, Admin Block',    category:'Membership Drive', status:'past',     desc:'Annual membership enrollment drive for students interested in joining the IEEE CS Student Chapter.' },
+  { id:6, name:'Cloud Computing Essentials',        date:'2025-04-07', time:'3:00 PM',  venue:'Seminar Hall B, Block IV',        category:'Workshop',         status:'past',     desc:'Introductory workshop on AWS, Azure fundamentals and containerization with Docker and Kubernetes.' }
+];
+
+let currentCat = 'all';
+let currentView = 'grid';
+let pendingEvent = null;
+
+const sampleData = [
+  { name:'Machine Learning Bootcamp',       date:'2025-06-10', time:'9:00 AM',  venue:'Tech Lab 101, Block III',        category:'Workshop'         },
+  { name:'Blockchain Dev Hackathon',         date:'2025-07-05', time:'8:00 AM',  venue:'Innovation Hub, Level 2',        category:'Hackathon'        },
+  { name:'CS Membership Enrollment Drive',   date:'2025-05-20', time:'10:00 AM', venue:'Main Auditorium',                category:'Membership Drive' },
+  { name:'Advanced DSA Challenge',           date:'2025-06-01', time:'2:00 PM',  venue:'Digital Classroom DC-2',         category:'Coding Challenge' },
+  { name:'AI Ethics & Society Seminar',      date:'2025-06-18', time:'11:00 AM', venue:'Seminar Hall C, Block I',        category:'Seminar'          }
+];
+let sampleIdx = 0;
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+function formatDate(d) {
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-US', { day:'numeric', month:'short', year:'numeric' });
+}
+
+// ── FILTER & RENDER ──────────────────────────────────────────────────────────
+function setCat(el, cat) {
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  currentCat = cat;
+  filterEvents();
+}
+
+function filterEvents() {
+  const q    = document.getElementById('searchInput').value.toLowerCase();
+  const from = document.getElementById('dateFrom').value;
+  const to   = document.getElementById('dateTo').value;
+  const sort = document.getElementById('sortSelect').value;
+
+  let filtered = events.filter(e => {
+    const matchCat  = currentCat === 'all' || e.category === currentCat;
+    const matchQ    = !q || e.name.toLowerCase().includes(q) || e.category.toLowerCase().includes(q) || e.venue.toLowerCase().includes(q);
+    const matchFrom = !from || e.date >= from;
+    const matchTo   = !to   || e.date <= to;
+    return matchCat && matchQ && matchFrom && matchTo;
+  });
+
+  if (sort === 'date-asc')  filtered.sort((a,b) => a.date.localeCompare(b.date));
+  else if (sort === 'date-desc') filtered.sort((a,b) => b.date.localeCompare(a.date));
+  else filtered.sort((a,b) => a.name.localeCompare(b.name));
+
+  renderEvents(filtered);
+  document.getElementById('eventsCount').textContent = `Showing ${filtered.length} event${filtered.length !== 1 ? 's' : ''}`;
+}
+
+function renderEvents(evts) {
+  const c = document.getElementById('eventsContainer');
+  if (!evts.length) {
+    c.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No events found</div><div class="empty-desc">Try adjusting your search or filters</div></div>`;
+    return;
+  }
+  c.innerHTML = currentView === 'grid'
+    ? evts.map(e => gridCard(e)).join('')
+    : evts.map(e => listItem(e)).join('');
+}
+
+function gridCard(e) {
+  const s = CAT_STYLES[e.category];
+  const statusCls   = e.status === 'upcoming' ? 'status-upcoming' : e.status === 'ongoing' ? 'status-ongoing' : 'status-past';
+  const statusLabel = e.status === 'upcoming' ? '● Upcoming' : e.status === 'ongoing' ? '◎ Ongoing' : 'Past';
+  return `
+  <div class="event-card" onclick="openDetail(${e.id})">
+    <div class="card-poster" style="background:${s.bg}">
+      <div class="card-poster-icon">${s.icon}</div>
+      <div class="card-poster-label"><span class="status-badge ${statusCls}">${statusLabel}</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-category ${s.cls}">${e.category}</div>
+      <div class="card-title">${e.name}</div>
+      <div class="card-meta">
+        <div class="card-meta-row"><span class="card-meta-icon">📅</span><span>${formatDate(e.date)}</span></div>
+        <div class="card-meta-row"><span class="card-meta-icon">🕐</span><span>${e.time}</span></div>
+        <div class="card-meta-row"><span class="card-meta-icon">📍</span><span>${e.venue}</span></div>
+      </div>
+    </div>
+    <div class="card-actions">
+      <button class="card-action-btn" onclick="event.stopPropagation();shareEvent(${e.id})">↗ Share</button>
+      <button class="card-view-btn"   onclick="event.stopPropagation();openDetail(${e.id})">View Details</button>
+    </div>
+  </div>`;
+}
+
+function listItem(e) {
+  const s = CAT_STYLES[e.category];
+  const statusCls   = e.status === 'upcoming' ? 'status-upcoming' : 'status-past';
+  const statusLabel = e.status === 'upcoming' ? '● Upcoming' : 'Past';
+  return `
+  <div class="event-list-item" onclick="openDetail(${e.id})">
+    <div class="list-icon" style="background:${s.bg}">${s.icon}</div>
+    <div class="list-content">
+      <div class="list-title">${e.name}</div>
+      <div class="list-sub">
+        <span>📅 ${formatDate(e.date)}</span>
+        <span>🕐 ${e.time}</span>
+        <span>📍 ${e.venue}</span>
+      </div>
+    </div>
+    <div class="list-right">
+      <span class="card-category ${s.cls}" style="margin:0">${e.category}</span>
+      <span class="status-badge ${statusCls}">${statusLabel}</span>
+    </div>
+  </div>`;
+}
+
+function setView(v) {
+  currentView = v;
+  document.getElementById('gridBtn').classList.toggle('active', v === 'grid');
+  document.getElementById('listBtn').classList.toggle('active', v === 'list');
+  document.getElementById('eventsContainer').className = v === 'grid' ? 'events-grid' : 'events-list';
+  filterEvents();
+}
+
+// ── DETAIL MODAL ─────────────────────────────────────────────────────────────
+function openDetail(id) {
+  const e = events.find(x => x.id === id);
+  if (!e) return;
+  const s = CAT_STYLES[e.category];
+  const statusCls = e.status === 'upcoming' ? 'status-upcoming' : 'status-past';
+  document.getElementById('detailContent').innerHTML = `
+    <button class="modal-close" onclick="closeModal('detailModal')" style="z-index:10">✕</button>
+    <div class="detail-poster" style="background:${s.bg}">
+      <span style="font-size:72px">${s.icon}</span>
+    </div>
+    <div class="detail-body">
+      <div class="detail-header">
+        <div class="detail-title">${e.name}</div>
+        <span class="status-badge ${statusCls}" style="flex-shrink:0;margin-top:8px">${e.status}</span>
+      </div>
+      <span class="card-category ${s.cls}">${e.category}</span>
+      <p style="font-size:14px;color:var(--ieee-muted);margin-top:12px;line-height:1.7">${e.desc}</p>
+      <div class="detail-meta-grid">
+        <div class="detail-meta-item"><div class="detail-meta-label">Date</div><div class="detail-meta-value">${formatDate(e.date)}</div></div>
+        <div class="detail-meta-item"><div class="detail-meta-label">Time</div><div class="detail-meta-value">${e.time}</div></div>
+        <div class="detail-meta-item" style="grid-column:1/-1"><div class="detail-meta-label">Venue</div><div class="detail-meta-value">${e.venue}</div></div>
+      </div>
+      <div class="detail-section-title">✦ OCR Extracted Data</div>
+      <div class="ocr-raw">Event Name : ${e.name}
+Date       : ${e.date}
+Time       : ${e.time}
+Venue      : ${e.venue}
+Category   : ${e.category}
+Confidence : 93.4%
+Engine     : Tesseract OCR v5.3 + NLP Classifier</div>
+    </div>`;
+  document.getElementById('detailModal').classList.add('open');
+}
+
+// ── UPLOAD MODAL ─────────────────────────────────────────────────────────────
+function openUploadModal() {
+  document.getElementById('uploadModal').classList.add('open');
+  resetUploadModal();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function resetUploadModal() {
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('processingSection').classList.remove('visible');
+  document.getElementById('extractedPreview').classList.remove('visible');
+  document.getElementById('submitBtn').classList.remove('visible');
+  document.getElementById('progressBar').style.width = '0%';
+  document.getElementById('fileInput').value = '';
+  pendingEvent = null;
+}
+
+function handleDragOver(e)  { e.preventDefault(); document.getElementById('dropZone').classList.add('drag-over'); }
+function handleDragLeave()  { document.getElementById('dropZone').classList.remove('drag-over'); }
+function handleDrop(e)      { e.preventDefault(); handleDragLeave(); const f = e.dataTransfer.files[0]; if (f) processFile(f); }
+function handleFileSelect(e){ const f = e.target.files[0]; if (f) processFile(f); }
+
+function processFile(file) {
+  const allowed = ['image/jpeg','image/png','application/pdf'];
+  if (!allowed.includes(file.type)) {
+    alert('Unsupported file type. Please upload a JPEG, PNG, or PDF.');
+    return;
+  }
+
+  document.getElementById('dropZone').style.display = 'none';
+  document.getElementById('processingSection').classList.add('visible');
+  document.getElementById('processingFileName').textContent = '📎 ' + file.name;
+
+  const steps = [
+    'Initializing OCR engine...',
+    'Converting image to text...',
+    'Extracting named entities...',
+    'Running NLP classifier...',
+    'Verifying metadata accuracy...',
+    'Finalizing extraction...'
+  ];
+
+  let i = 0, prog = 0;
+  const bar     = document.getElementById('progressBar');
+  const stepEl  = document.getElementById('processingStep');
+
+  const interval = setInterval(() => {
+    prog = Math.min(prog + 16, 95);
+    bar.style.width = prog + '%';
+    if (i < steps.length) stepEl.textContent = steps[i++];
+
+    if (prog >= 95) {
+      clearInterval(interval);
+      bar.style.width = '100%';
+      stepEl.textContent = '✓ Extraction complete — 93.4% confidence';
+
+      const d = sampleData[sampleIdx % sampleData.length];
+      sampleIdx++;
+
+      document.getElementById('extName').textContent = d.name;
+      document.getElementById('extDate').textContent = formatDate(d.date);
+      document.getElementById('extTime').textContent = d.time;
+      document.getElementById('extVenue').textContent = d.venue;
+      document.getElementById('extCat').textContent  = d.category;
+      document.getElementById('extConf').textContent = '93.4%';
+
+      document.getElementById('extractedPreview').classList.add('visible');
+      document.getElementById('submitBtn').classList.add('visible');
+
+      pendingEvent = {
+        ...d,
+        id: Date.now(),
+        status: 'upcoming',
+        desc: 'Automatically extracted event from uploaded poster. Details verified by OCR + NLP pipeline.'
+      };
+    }
+  }, 320);
+}
+
+function submitEvent() {
+  if (!pendingEvent) return;
+  events.unshift(pendingEvent);
+  closeModal('uploadModal');
+  filterEvents();
+  document.getElementById('stat-total').textContent    = events.length;
+  document.getElementById('stat-upcoming').textContent = events.filter(e => e.status === 'upcoming').length;
+}
+
+function shareEvent(id) {
+  const e = events.find(x => x.id === id);
+  if (!e) return;
+  if (navigator.share) {
+    navigator.share({ title: e.name, text: `${e.name} — ${formatDate(e.date)} at ${e.venue}` });
+  } else {
+    navigator.clipboard.writeText(`${e.name} | ${formatDate(e.date)} | ${e.time} | ${e.venue}`)
+      .then(() => alert('Event details copied to clipboard!'))
+      .catch(() => alert('Share: ' + e.name));
+  }
+}
+
+function showView(v) {
+  document.querySelectorAll('.nav-tab').forEach((t, i) => t.classList.toggle('active', i === (v === 'events' ? 0 : 1)));
+  if (v === 'upload') openUploadModal();
+}
+
+// Close modals on overlay click
+document.getElementById('uploadModal').addEventListener('click', function(e) { if (e.target === this) closeModal('uploadModal'); });
+document.getElementById('detailModal').addEventListener('click', function(e) { if (e.target === this) closeModal('detailModal'); });
+
+// Close on Escape key
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('uploadModal'); closeModal('detailModal'); } });
+
+// Init
+filterEvents();
+</script>
+</body>
+</html>
