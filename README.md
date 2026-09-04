@@ -67,10 +67,6 @@ This is a front-end prototype, not a production system:
 
 Issues and pull requests are welcome. If you're extending the OCR pipeline or adding a backend, please open an issue first to discuss the approach.
 
-## 📄 License
 
-Add a license of your choice (e.g. MIT) — none is currently specified in this repository.
-
----
 
 Built for the **IEEE Computer Society Student Chapter, SRM IST Vadapalani**.
